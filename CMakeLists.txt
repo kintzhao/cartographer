@@ -4,7 +4,7 @@
 # you may not use this file except in compliance with the License.
 # You may obtain a copy of the License at
 #
-#      http://www.apache.org/licenses/LICENSE-2.0
+#      http://wwwpache.org/licenses/LICENSE-2.0
 #
 # Unless required by applicable law or agreed to in writing, software
 # distributed under the License is distributed on an "AS IS" BASIS,
@@ -29,7 +29,7 @@ include("${PROJECT_SOURCE_DIR}/cmake/functions.cmake")
 google_initialize_cartographer_project()
 google_enable_testing()
 
-find_package(Abseil REQUIRED)
+find_package(absl REQUIRED)
 set(BOOST_COMPONENTS iostreams)
 if(WIN32)
   list(APPEND BOOST_COMPONENTS zlib)
@@ -268,7 +268,66 @@ target_include_directories(${PROJECT_NAME} SYSTEM PUBLIC
   ${PROTOBUF_INCLUDE_DIR})
 # TODO(hrapp): This should not explicitly list pthread and use
 # PROTOBUF_LIBRARIES, but that failed on first try.
-target_link_libraries(${PROJECT_NAME} PUBLIC ${PROTOBUF_LIBRARY} standalone_absl)
+set(ABSEL_LIB
+absl::bad_any_cast_impl
+absl::bad_optional_access
+absl::bad_variant_access
+absl::base
+absl::city
+absl::civil_time
+absl::cord
+absl::debugging_internal
+absl::demangle_internal
+absl::dynamic_annotations
+absl::examine_stack
+absl::exponential_biased
+absl::failure_signal_handler
+absl::flags
+absl::flags_config
+absl::flags_handle
+absl::flags_internal
+absl::flags_marshalling
+absl::flags_parse
+absl::flags_program_name
+absl::flags_registry
+absl::flags_usage
+absl::flags_usage_internal
+absl::graphcycles_internal
+absl::hash
+absl::hashtablez_sampler
+absl::int128
+absl::leak_check
+absl::leak_check_disable
+absl::log_severity
+absl::malloc_internal
+absl::periodic_sampler
+absl::random_distributions
+absl::random_internal_distribution_test_util
+absl::random_internal_pool_urbg
+absl::random_internal_randen
+absl::random_internal_randen_hwaes
+absl::random_internal_randen_hwaes_impl
+absl::random_internal_randen_slow
+absl::random_internal_seed_material
+absl::random_seed_gen_exception
+absl::random_seed_sequences
+absl::raw_hash_set
+absl::raw_logging_internal
+absl::scoped_set_env
+absl::spinlock_wait
+absl::stacktrace
+absl::status
+absl::strerror
+absl::str_format_internal
+absl::strings
+absl::strings_internal
+absl::symbolize
+absl::synchronization
+absl::throw_delegate
+absl::time
+absl::time_zone
+)
+target_link_libraries(${PROJECT_NAME} PUBLIC ${PROTOBUF_LIBRARY} ${ABSEL_LIB})
 if (NOT WIN32)
   target_link_libraries(${PROJECT_NAME} PUBLIC pthread)
 endif()
